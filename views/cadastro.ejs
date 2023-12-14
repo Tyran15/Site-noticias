@@ -10,7 +10,7 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/style.css">
-    <title>Document</title>
+    <title>Cadastro</title>
 </head>
 
 <body>
@@ -40,23 +40,29 @@
     </nav>
     <div class="base-form">
         <div class="login">
-            <form class="d-flex justify-content-center flex-column align-items-lg-center">
+            <form method="post" action="/cadastro" class="d-flex justify-content-center flex-column align-items-lg-center">
                 <h1>CADASTRO</h1>
                 <div class="mb-3 w-75">
                     <label for="exampleInputEmail1" class="form-label">Nome completo</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="nome" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3 w-75">
                     <label for="exampleInputEmail1" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3 w-75">
                     <label for="exampleInputPassword1" class="form-label">Senha</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <input type="password" class="form-control" name="senha" id="exampleInputPassword1">
                 </div>
-                <div class="mb-3 w-75">
-                    <label for="exampleInputEmail1" class="form-label">Data de nascimento</label>
-                    <input type="text" class="form-control" id="dataInput" aria-describedby="emailHelp">
+                <div class="d-flex w-75">
+                    <div class="mb-3 w-50">
+                        <label for="exampleInputEmail1" class="form-label">Data de nascimento</label>
+                        <input type="text" class="form-control" id="dataInput" name="dataNasc" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3 w-50 ms-3">
+                        <label for="formFile" class="form-label">Foto de perfil</label>
+                        <input class="form-control" type="file" id="formFile">
+                      </div>                      
                 </div>
                 <button type="submit" class="btn btn-primary w-75">Enviar</button>
             </form>
