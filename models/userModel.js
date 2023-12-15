@@ -20,7 +20,6 @@ const userSchema = new mongoose.Schema({
     },
     imagem_name: {
         type: String,
-        required: true,
     },
 });
 

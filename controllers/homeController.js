@@ -49,22 +49,32 @@ const HomeController = {
     post_cadastro: async (req, res) => {
         try {
             const { nome, email, senha, dataNasc } = req.body;
-            const file = req.file.filename;
-
+            const file = req.file ? req.file.filename : null;
+    
             User.find({ email })
                 .then((logins) => {
                     if (logins.length > 0) {
                         console.log('Email já existente');
                         res.render('cadastro');
                     } else {
-                        const newUser = new User({
-                            nome: nome,
-                            email: email,
-                            senha: senha,
-                            data_nascimento: dataNasc,
-                            imagem_name: file,
-                        });
-
+                        let newUser;
+                        if (file) {
+                            newUser = new User({
+                                nome: nome,
+                                email: email,
+                                senha: senha,
+                                data_nascimento: dataNasc,
+                                imagem_name: file,
+                            });
+                        } else {
+                            newUser = new User({
+                                nome: nome,
+                                email: email,
+                                senha: senha,
+                                data_nascimento: dataNasc,
+                            });
+                        }
+    
                         newUser.save()
                             .then(() => {
                                 console.log('Usuário cadastrado com sucesso');
@@ -89,12 +99,12 @@ const HomeController = {
     get_logout: (req, res) => {
         req.session.destroy(err => {
             if (err) {
-              console.error('Erro ao fazer logout:', err);
-              res.redirect('/');
+                console.error('Erro ao fazer logout:', err);
+                res.redirect('/');
             } else {
-              res.redirect('/login');
+                res.redirect('/login');
             }
-          });
+        });
     },
 };
 

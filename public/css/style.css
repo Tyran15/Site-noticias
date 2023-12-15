@@ -10,7 +10,7 @@
     background-color: rgb(212, 212, 212);
     width: 50%;
     text-align: center;
-    height: 92vh;
+    height: 98vh;
     padding-top: 15%;
 }
 
@@ -32,4 +32,8 @@ h1{
 .avatar{
     border-radius: 50px;
     border: 1px solid black;
+}
+
+#nav{
+    height: 3rem;
 }
