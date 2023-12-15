@@ -12,7 +12,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/Noticias', ({
 }));
 
 const app = express();
-const port = 3001;
+const port = 3000;
 
 app.use(session({
   secret: 'ndijjsandijqokdoiqwjadiuehidabsdijsandi',
@@ -47,6 +47,7 @@ const indexRouter = require('./routes/index');
 app.get('/', indexRouter);
 app.get('/login', indexRouter);
 app.get('/cadastro', indexRouter);
+app.get('/dashboard', indexRouter);
 
 app.post('/cadastro', upload.single("file"), indexRouter);
 app.post('/login', indexRouter);

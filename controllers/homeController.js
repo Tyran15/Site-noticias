@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const Noticias = require('../models/noticiasModel');
 const mongoose = require('mongoose');
 const session = require('express-session');
 
@@ -28,6 +29,17 @@ const HomeController = {
             res.redirect('/');
         } else{
             res.render('cadastro');
+        }
+    },
+    get_dashborad: async (req, res) => {
+        const user = req.session.user;
+        const contUsers = await User.countDocuments({});
+        const contNoticias = await Noticias.countDocuments({});
+
+        if(user){
+            res.render('homeDashbord', { user: user, contUsers: contUsers, contNoticias: contNoticias });
+        } else{
+            res.redirect('/');
         }
     },
 
