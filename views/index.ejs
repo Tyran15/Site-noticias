@@ -29,14 +29,33 @@
                 </ul>
             </div>
             <ul class="navbar-nav d-flex justify-content-end">
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/cadastro">Cadastro</a>
-                </li>
+                <% if (typeof user !=='undefined' && user !==null && user.isLogin) { %>
+                    <li class="nav-item dropdown d-flex align-items-center">
+                        <p class="pt-1 me-3 text-aling-center">Seja bem-vindo, <%= user.username %>!</p>
+                        <a class="nav-link dropdown-toggle p-0" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <img class="avatar" src="/img/avatar_user/<%= user.avatar %>" width="40">
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/logout">logout</a></li>
+                        </ul>
+                    </li>
+
+                    <% } else { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/cadastro">Cadastro</a>
+                        </li>
+                        <% } %>
             </ul>
         </div>
     </nav>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 const User = require('../models/userModel');
 const mongoose = require('mongoose');
+const session = require('express-session');
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Erro de conexão:'));
@@ -9,26 +10,31 @@ db.once('open', () => {
 
 const HomeController = {
     get_index: (req, res) => {
-        res.render('index');
+        const user = req.session.user;
+
+        res.render('index', { user });
     },
     get_login: (req, res) => {
-        res.render('login');
+        const user = req.session.user;
+
+        res.render('login', { user });
     },
     get_cadastro: (req, res) => {
-        res.render('cadastro');
+        const user = req.session.user;
+
+        res.render('cadastro', { user });
     },
 
     post_login: async (req, res) => {
         try {
-            const { email, senha } = req.body;
-        
+            const { email, senha, } = req.body;
+
             User.findOne({ email: email, senha: senha })
                 .then((login) => {
                     if (login !== null) {
-                        console.log('Login efetuado com sucesso');
-                        res.render('index');
+                        req.session.user = { username: login.nome, email: login.email, avatar: login.imagem_name, isLogin: true }
+                        res.render('index', { user: req.session.user });
                     } else {
-                        console.log('Conta não cadastrada')
                         res.render('login');
                     }
                 }).catch((err) => {
@@ -42,7 +48,7 @@ const HomeController = {
     },
     post_cadastro: async (req, res) => {
         try {
-            const { nome, email, senha, dataNasc} = req.body;
+            const { nome, email, senha, dataNasc } = req.body;
             const file = req.file.filename;
 
             User.find({ email })
@@ -78,6 +84,17 @@ const HomeController = {
             console.error(error);
             res.status(500).send('Erro interno do servidor.');
         }
+    },
+
+    get_logout: (req, res) => {
+        req.session.destroy(err => {
+            if (err) {
+              console.error('Erro ao fazer logout:', err);
+              res.redirect('/');
+            } else {
+              res.redirect('/login');
+            }
+          });
     },
 };
 

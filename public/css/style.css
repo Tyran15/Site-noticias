@@ -29,3 +29,7 @@ h1{
     text-align: center;
 }
 
+.avatar{
+    border-radius: 50px;
+    border: 1px solid black;
+}

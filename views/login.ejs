@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<% if (typeof user !== 'undefined' && user !== null && user.isLogin) {
+    res.redirect('/');
+}%><!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
@@ -29,12 +31,18 @@
                 </ul>
             </div>
             <ul class="navbar-nav d-flex justify-content-end">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/cadastro">Cadastro</a>
-                </li>
+                <% if (typeof user !== 'undefined' && user !== null && user.isLogin) { %>
+                    <li class="nav-item">
+                        <p>Seja bem-vindo, <%= user.username %>!</p>
+                    </li>
+                <% } else { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cadastro">Cadastro</a>
+                    </li>
+                <% } %>    
             </ul>
         </div>
     </nav>

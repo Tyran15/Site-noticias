@@ -9,4 +9,6 @@ router.get('/cadastro', HomeController.get_cadastro);
 router.post('/cadastro', HomeController.post_cadastro);
 router.post('/login', HomeController.post_login);
 
+router.get('/logout', HomeController.get_logout);
+
 module.exports = router;

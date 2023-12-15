@@ -3,6 +3,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const multer = require('multer');
+const session = require('express-session');
 
 mongoose.connect('mongodb://127.0.0.1:27017/Noticias', ({
   useNewUrlParser: true,
@@ -11,6 +12,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/Noticias', ({
 
 const app = express();
 const port = 3000;
+
+app.use(session({
+  secret: 'ndijjsandijqokdoiqwjadiuehidabsdijsandi',
+  resave: false,
+  saveUninitialized: true,
+}));
 
 app.use(express.static('public'));
 
@@ -41,6 +48,7 @@ app.get('/cadastro', indexRouter);
 app.post('/cadastro', upload.single("file"), indexRouter);
 app.post('/login', indexRouter);
 
+app.get('/logout', indexRouter);
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
