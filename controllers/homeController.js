@@ -33,13 +33,21 @@ const HomeController = {
 
     post_login: async (req, res) => {
         try {
-            const { email, senha, } = req.body;
-
+            const { email, senha, lembrar_de_mim } = req.body;
+    
             User.findOne({ email: email, senha: senha })
                 .then((login) => {
                     if (login !== null) {
                         req.session.user = { username: login.nome, email: login.email, avatar: login.imagem_name, isLogin: true }
-                        res.render('index', { user: req.session.user });
+    
+                        if (lembrar_de_mim) {
+                            const oneWeek = 7 * 24 * 60 * 60 * 1000;
+                            const options = { maxAge: oneWeek, httpOnly: true, signed: true };
+                            res.cookie('remember_me', '1', options);
+                            res.render('index', { user: req.session.user });
+                        } else {
+                            res.render('index', { user: req.session.user });
+                        }
                     } else {
                         res.render('login');
                     }

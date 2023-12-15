@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 mongoose.connect('mongodb://127.0.0.1:27017/Noticias', ({
   useNewUrlParser: true,
@@ -11,13 +12,15 @@ mongoose.connect('mongodb://127.0.0.1:27017/Noticias', ({
 }));
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 app.use(session({
   secret: 'ndijjsandijqokdoiqwjadiuehidabsdijsandi',
   resave: false,
   saveUninitialized: true,
 }));
+
+app.use(cookieParser('dsakdnskandokasndwoqidnqedbekjacxz'));
 
 app.use(express.static('public'));
 
