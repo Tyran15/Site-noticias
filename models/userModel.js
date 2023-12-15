@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    imagem_name: {
+        type: String,
+        required: true,
+    },
 });
 
 const User = mongoose.model('users', userSchema, 'users');

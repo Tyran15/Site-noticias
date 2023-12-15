@@ -40,7 +40,7 @@
     </nav>
     <div class="base-form">
         <div class="login">
-            <form method="post" action="/cadastro" class="d-flex justify-content-center flex-column align-items-lg-center">
+            <form method="post" action="/cadastro" enctype="multipart/form-data" class="d-flex justify-content-center flex-column align-items-lg-center">
                 <h1>CADASTRO</h1>
                 <div class="mb-3 w-75">
                     <label for="exampleInputEmail1" class="form-label">Nome completo</label>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="mb-3 w-50 ms-3">
                         <label for="formFile" class="form-label">Foto de perfil</label>
-                        <input class="form-control" type="file" id="formFile">
+                        <input class="form-control" name="file" type="file" id="formFile">
                       </div>                      
                 </div>
                 <button type="submit" class="btn btn-primary w-75">Enviar</button>

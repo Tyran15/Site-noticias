@@ -1,6 +1,5 @@
 const User = require('../models/userModel');
 const mongoose = require('mongoose');
-const dataFormat = require('../core/dataFormat');
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Erro de conexão:'));
@@ -43,7 +42,8 @@ const HomeController = {
     },
     post_cadastro: async (req, res) => {
         try {
-            const { nome, email, senha, dataNasc } = req.body;
+            const { nome, email, senha, dataNasc} = req.body;
+            const file = req.file.filename;
 
             User.find({ email })
                 .then((logins) => {
@@ -56,6 +56,7 @@ const HomeController = {
                             email: email,
                             senha: senha,
                             data_nascimento: dataNasc,
+                            imagem_name: file,
                         });
 
                         newUser.save()
