@@ -16,13 +16,19 @@ const HomeController = {
     },
     get_login: (req, res) => {
         const user = req.session.user;
-
-        res.render('login', { user });
+        if(user){
+            res.redirect('/');
+        } else{
+            res.render('login');
+        }
     },
     get_cadastro: (req, res) => {
         const user = req.session.user;
-
-        res.render('cadastro', { user });
+        if(user){
+            res.redirect('/');
+        } else{
+            res.render('cadastro');
+        }
     },
 
     post_login: async (req, res) => {
