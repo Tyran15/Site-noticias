@@ -48,11 +48,16 @@ app.get('/', indexRouter);
 app.get('/login', indexRouter);
 app.get('/cadastro', indexRouter);
 app.get('/dashboard', indexRouter);
+app.get('/perfil' , indexRouter);
 
 app.post('/cadastro', upload.single("file"), indexRouter);
 app.post('/login', indexRouter);
+app.post('/perfil', upload.single("file"), indexRouter);
 
 app.get('/logout', indexRouter);
+
+app.get('/noticias', indexRouter);
+app.get('/users', indexRouter);
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);

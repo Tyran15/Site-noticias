@@ -60,32 +60,35 @@
         </div>
         <div class="dashboard_area">
             <h1>Dashborad</h1>
-            <div class="d-flex flex-column justify-content-center align-items-center">
-                <div class="row mt-5 ps-5 pe-5 w-50 d-flex justify-content-center align-items-center" id="base-cards">
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                        <div class="card">
-                            <div class="card-body d-flex justify-content-center flex-column text-center">
-                                <h5 style="font-weight: bold;" class="card-title">Usuários</h5>
-                                <p class="card-text"><img src="/img/icons/users.png" width="50"></p>
-                                <h3>
-                                    <%= contUsers %>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-body d-flex justify-content-center flex-column text-center">
-                                <h5 style="font-weight: bold;" class="card-title">Notícias</h5>
-                                <p class="card-text"><img src="/img/icons/news.png" width="50"></p>
-                                <h3>
-                                    <%= contNoticias %>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <table class="table m-1">
+                <thead>
+                    <tr>
+                        <th class="text-center" scope="col">#</th>
+                        <th class="text-center" scope="col">Capa</th>
+                        <th class="text-center" scope="col">Título</th>
+                        <th class="text-center" scope="col">Tema</th>
+                        <th class="text-center" scope="col">Data lançamento</th>
+                        <th class="text-center" scope="col">Autor</th>
+                        <th class="text-center" scope="col">Editar</th>
+                        <th class="text-center" scope="col">Excluir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% noticias.forEach(function(noticia, i) { %>
+                        <th scope="row" class="text-center"><%= i + 1 %></th>
+                        <td class="text-center"><img class="avatar" src="/img/avatar_user/<%= typeof noticia.capa_noticia == 'undefined'
+                            ? 'avatar-none.png' : user.avatar %>" width="40"> </a></td>
+                        <td class="text-center"><%= noticia.nome %></td>
+                        <td class="text-center"><%= noticia.email %></td>
+                        <td class="text-center"><%= noticia.data_nascimento %></td>
+                        <td class="text-center"><%= noticia.data_nascimento %></td>
+                        <td class="text-center"><button style="border: none; background-color: white;"><i class="fa-solid fa-pen-to-square"></i></button><td>
+                        <td class="text-center"><button style="color: red; border: none; background-color: white;"><i class="fa-solid fa-trash"></i></button><td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <button class="button-plus"><i class="fa-solid fa-plus"></i></button>
         </div>
     </div>
 </body>

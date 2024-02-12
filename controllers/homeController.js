@@ -42,6 +42,14 @@ const HomeController = {
             res.redirect('/');
         }
     },
+    get_perfil: (req, res) => {
+        const user = req.session.user;
+        if(user){
+            res.redirect('/');
+        } else{
+            res.render('cadastro');
+        }
+    },
 
     post_login: async (req, res) => {
         try {
@@ -50,7 +58,7 @@ const HomeController = {
             User.findOne({ email: email, senha: senha })
                 .then((login) => {
                     if (login !== null) {
-                        req.session.user = { username: login.nome, email: login.email, avatar: login.imagem_name, isLogin: true }
+                        req.session.user = { id:login._id, username: login.nome, email: login.email, avatar: login.imagem_name, isLogin: true }
     
                         if (lembrar_de_mim) {
                             const oneWeek = 7 * 24 * 60 * 60 * 1000;
@@ -120,6 +128,83 @@ const HomeController = {
             console.error(error);
             res.status(500).send('Erro interno do servidor.');
         }
+    },
+    post_perfil: async (req, res) => {
+        try {
+            const { nome, email, senha, dataNasc } = req.body;
+            const file = req.file ? req.file.filename : null;
+    
+            User.find({ email })
+                .then((logins) => {
+                    if (logins.length > 0) {
+                        console.log('Email já existente');
+                        res.render('cadastro');
+                    } else {
+                        let newUser;
+                        if (file) {
+                            newUser = new User({
+                                nome: nome,
+                                email: email,
+                                imagem_name: file,
+                            });
+
+                            newUser.updateOne({ _id: userId}, {
+                                $set: {
+                                    nome: nome,
+                                    email: email,
+                                    imagem_name: file,
+                                },
+                            });
+
+                            if (newUser) {
+                                
+                            }
+                        } else {
+                            newUser = new User({
+                                nome: nome,
+                                email: email,
+                            });
+
+                            newUser.updateOne({ _id: userId}, {
+                                $set: {
+                                    nome: nome,
+                                    email: email,
+                                },
+                            });
+                        }
+
+                        res.redirect('/perfil');
+                    }
+                })
+                .catch((err) => {
+                    console.error(err);
+                    res.status(500).send('Erro interno do servidor');
+                });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Erro interno do servidor.');
+        }
+    },
+
+    get_noticias: async (req, res) => {
+        const user = req.session.user;
+        const noticias = await Noticias.find({});
+
+        if(user){
+            res.render('noticias', { noticias: noticias, user: user });
+        } else{
+            res.redirect('/');
+        }
+    },
+    get_users: async (req, res) => {
+        const user = req.session.user;
+        const users = await User.find({});
+
+        if(user){
+            res.render('users', { user: user, users: users });
+        } else{
+            res.redirect('/');
+        } 2
     },
 
     get_logout: (req, res) => {
